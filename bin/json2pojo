@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/pojo_creator'
+
+if (ARGV.size != 2)
+  puts "Usage is json2pojo <json_file> <class_name>" 
+  exit
+end
+
+json_file = File.open(ARGV[0])
+json = ""
+while(line = json_file.gets)
+  json += line + "\n"
+end
+
+puts PojoCreator.new(ARGV[1]).create_pojo(json)

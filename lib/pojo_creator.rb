@@ -2,6 +2,8 @@ require "json"
 
 class PojoCreator
 
+  VERSION = '0.1.0'
+
   def initialize(class_name)
     @class_name = get_class_name(class_name)
     @additional_classes = ""
@@ -11,6 +13,8 @@ class PojoCreator
     json = JSON.parse(json_string)
     pojo = "public class #{@class_name} {#{get_properties(json)}}" + @additional_classes
   end
+
+  private
 
   def get_properties(json)
     prop_string = ""

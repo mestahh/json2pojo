@@ -1,0 +1,15 @@
+require File.expand_path("../lib/pojo_creator", __FILE__)
+
+Gem::Specification.new do |s|
+  s.name        = 'json2pojo'
+  s.version     = PojoCreator::VERSION
+  s.date        = Time.now
+  s.summary     = "JSON to POJO converter."
+  s.description = "Creates a POJO from an example JSON file."
+  s.authors     = ["Balazs Mester"]
+  s.email       = 'balazs.mester@gmail.com'
+  s.files       = Dir.glob("lib/**/*")
+  s.homepage    = 'http://github.com/mestahh/json2pojo'
+  s.licenses    = 'MIT License'
+  s.executables << 'json2pojo'
+end
