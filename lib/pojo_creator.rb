@@ -18,19 +18,17 @@ class PojoCreator
 
   def get_properties(json)
     prop_string = ""
-    
+
     json.keys.each do |property|
       prop_prefix = "\t@JsonProperty(\"#{property}\")\tprivate "
 
       if (json[property].class.to_s == "Hash")
         @additional_classes << "class #{get_class_name(property)} {" + get_properties(json[property]) + "}"
-        prop_string += "#{prop_prefix}#{get_class_name(property)} #{get_field_name(property)};"
       elsif(json[property].class.to_s == "Array")
         @additional_classes << "class #{get_class_name(property)} {" + get_properties(json[property][0]) + "}"
-        prop_string += "#{prop_prefix}List<#{get_class_name(property)}> #{get_field_name(property)};"
-      else
-        prop_string += "#{prop_prefix}#{get_type(json[property])} #{get_field_name(property)};"
       end
+      prop_string += prop_prefix + get_type(json, property) + " " +  get_field_name(property) + ";"
+
     end
     prop_string
 
@@ -52,21 +50,25 @@ class PojoCreator
     snake_case_to_class_name(property)
   end
 
-  def get_type(value)
+  def get_type(json, key)
 
     begin
-      Date.parse(value)
+      Date.parse(json[key])
       return "Date"
     rescue
 
     end
 
-    if value.class.to_s == "Fixnum"
+    if json[key].class.to_s == "Fixnum"
       return "Integer"
-    elsif value.class.to_s == "Float"
+    elsif json[key].class.to_s == "Float"
       return "Float"
-    elsif value.class.to_s == "FalseClass" or value.class.to_s == "TrueClass"
+    elsif json[key].class.to_s == "FalseClass" or json[key].class.to_s == "TrueClass"
       return "Boolean"
+    elsif json[key].class.to_s == "Hash"
+      return get_class_name(key)
+    elsif json[key].class.to_s == "Array"
+      return "List<" + get_class_name(key) + ">"
     else
       return "String"
     end
