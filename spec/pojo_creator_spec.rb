@@ -18,6 +18,14 @@ describe PojoCreator do
     '}')
   end
 
+  it "creates an POJO with a Date" do
+    PojoCreator.new("ClassName").create_pojo('{"day" : "2012-12-12"}').should eq(
+      "public class ClassName {"\
+      "\t@JsonProperty(\"day\")"\
+      "\tprivate Date day;"\
+    "}")
+  end
+
   it "creates an POJO with a List" do
     PojoCreator.new("other_class").create_pojo('{"text" : [ { "size" : "1234", "name" : "first" } ] }').should eq(
       "public class OtherClass {"\

@@ -18,7 +18,7 @@ class PojoCreator
 
   def get_properties(json)
     prop_string = ""
-    
+
     json.keys.each do |property|
       if (json[property].class.to_s == "Hash")
         @additional_classes << "class #{get_class_name(property)} {" + get_properties(json[property]) + "}"
@@ -51,6 +51,12 @@ class PojoCreator
   end
 
   def get_type(value)
+    begin
+      Date.parse(value)
+      return "Date"
+    rescue
+
+    end
     if value.class.to_s == "Fixnum"
       return "Integer"
     else
