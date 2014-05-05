@@ -1,14 +1,17 @@
 json2pojo
 =========
 
+[![Gem Version](https://badge.fury.io/rb/json2pojo.svg)](http://badge.fury.io/rb/json2pojo)
+
 JSON to POJO generator. A simple generator that creates Plain Old JAVA Objects from a given example JSON file.
 
-=== Usage ===
+### Usage
 
- gem install json2pojo
- json2pojo <json_file> <base_class_name>
+ `gem install json2pojo`
 
-=== Notes ===
+ `json2pojo <json_file> <base_class_name>`
+
+### Notes
 
 https://rubygems.org/gems/json2pojo
 
