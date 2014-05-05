@@ -56,12 +56,15 @@ class PojoCreator
       Date.parse(value)
       return "Date"
     rescue
-
+      
     end
+
     if value.class.to_s == "Fixnum"
       return "Integer"
     elsif value.class.to_s == "Float"
       return "Float"
+    elsif value.class.to_s == "FalseClass" or value.class.to_s == "TrueClass"
+      return "Boolean"
     else
       return "String"
     end

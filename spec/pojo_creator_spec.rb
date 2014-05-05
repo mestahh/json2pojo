@@ -18,6 +18,14 @@ describe PojoCreator do
     "}")
   end
 
+  it "creates an POJO with a boolean" do
+    PojoCreator.new("ClassName").create_pojo('{"bool" : false}').should eq(
+      "public class ClassName {"\
+      "\t@JsonProperty(\"bool\")"\
+      "\tprivate Boolean bool;"\
+    "}")
+  end
+
   it "creates an POJO with a floating number" do
     PojoCreator.new("ClassName").create_pojo('{"number" : 12.34}').should eq(
       "public class ClassName {"\
