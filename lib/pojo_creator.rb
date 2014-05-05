@@ -21,10 +21,10 @@ class PojoCreator
 
     json.keys.each do |property|
       prop_prefix = "\t@JsonProperty(\"#{property}\")\tprivate "
-
-      if (json[property].class.to_s == "Hash")
+      class_name = json[property].class.to_s
+      if (class_name == "Hash")
         @additional_classes << "class #{get_class_name(property)} {" + get_properties(json[property]) + "}"
-      elsif(json[property].class.to_s == "Array")
+      elsif (class_name == "Array")
         @additional_classes << "class #{get_class_name(property)} {" + get_properties(json[property][0]) + "}"
       end
       prop_string += prop_prefix + get_type(json, property) + " " +  get_field_name(property) + ";"
@@ -51,7 +51,7 @@ class PojoCreator
   end
 
   def get_type(json, key)
-
+    
     begin
       Date.parse(json[key])
       return "Date"
@@ -59,15 +59,16 @@ class PojoCreator
 
     end
 
-    if json[key].class.to_s == "Fixnum"
+    class_name = json[key].class.to_s
+    if class_name == "Fixnum"
       return "Integer"
-    elsif json[key].class.to_s == "Float"
+    elsif class_name == "Float"
       return "Float"
-    elsif json[key].class.to_s == "FalseClass" or json[key].class.to_s == "TrueClass"
+    elsif class_name == "FalseClass" or class_name == "TrueClass"
       return "Boolean"
-    elsif json[key].class.to_s == "Hash"
+    elsif class_name == "Hash"
       return get_class_name(key)
-    elsif json[key].class.to_s == "Array"
+    elsif class_name == "Array"
       return "List<" + get_class_name(key) + ">"
     else
       return "String"
