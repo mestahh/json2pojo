@@ -2,7 +2,7 @@ require "json"
 
 class PojoCreator
 
-  VERSION = '0.1.0'
+  VERSION = '0.2.0'
 
   def initialize(class_name)
     @class_name = get_class_name(class_name)
@@ -51,6 +51,7 @@ class PojoCreator
   end
 
   def get_type(value)
+
     begin
       Date.parse(value)
       return "Date"
@@ -59,6 +60,8 @@ class PojoCreator
     end
     if value.class.to_s == "Fixnum"
       return "Integer"
+    elsif value.class.to_s == "Float"
+      return "Float"
     else
       return "String"
     end
