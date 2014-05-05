@@ -37,6 +37,18 @@ describe PojoCreator do
     "}")
   end
 
+  it "creates an POJO with an Object inside with one integer field with snake_case name" do
+    PojoCreator.new("ClassName").create_pojo('{"some_thing" : { "text" : "something"}}').should eq(
+      "public class ClassName {"\
+      "\t@JsonProperty(\"some_thing\")"\
+      "\tprivate SomeThing someThing;"\
+    "}"\
+    "public class SomeThing {"\
+    "\t@JsonProperty(\"text\")"\
+    "\tprivate String text;"\
+    "}")
+  end
+
 
 
 end

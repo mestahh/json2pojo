@@ -17,7 +17,7 @@ class PojoCreator
     json.keys.each do |property|
       if (json[property].class.to_s == "Hash")
         @additional_classes += "public class #{get_class_name(property)} {" + get_properties(json[property]) + "}"
-        prop_string += "\t@JsonProperty(\"#{property}\")\tprivate Text #{property};"
+        prop_string += "\t@JsonProperty(\"#{property}\")\tprivate #{get_class_name(property)} #{get_field_name(property)};"
       else
         prop_string += "\t@JsonProperty(\"#{property}\")\tprivate #{get_type(json[property])} #{get_field_name(property)};"
       end
@@ -27,11 +27,19 @@ class PojoCreator
   end
 
   def get_field_name(property)
-    property.gsub(/_./, &:upcase).gsub(/_/,"")
+    snake_case_to_field_name(property)
+  end
+
+  def snake_case_to_class_name(string)
+    snake_case_to_field_name(string).gsub(/(^.)/, &:upcase)
+  end
+
+  def snake_case_to_field_name(string)
+    string.gsub(/(_.)/, &:upcase).gsub("_", "")
   end
 
   def get_class_name(property)
-    property.capitalize
+    snake_case_to_class_name(property)
   end
 
   def get_type(value)
