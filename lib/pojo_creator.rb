@@ -19,14 +19,18 @@ class PojoCreator
         @additional_classes += "public class #{get_class_name(property)} {" + get_properties(json[property]) + "}"
         prop_string += "\t@JsonProperty(\"#{property}\")\tprivate Text #{property};"
       else
-        prop_string += "\t@JsonProperty(\"#{property}\")\tprivate #{get_type(json[property])} #{property};"
+        prop_string += "\t@JsonProperty(\"#{property}\")\tprivate #{get_type(json[property])} #{get_field_name(property)};"
       end
     end
     prop_string
 
   end
 
-  def get_class_name(property) 
+  def get_field_name(property)
+    property.gsub(/_./, &:upcase).gsub(/_/,"")
+  end
+
+  def get_class_name(property)
     property.capitalize
   end
 

@@ -17,6 +17,14 @@ describe PojoCreator do
     '}')
   end
 
+  it "creates an POJO with a String and camel-casify the property name" do
+    PojoCreator.new("ClassName").create_pojo('{"some_thing" : "something"}').should eq(
+      "public class ClassName {"\
+      "\t@JsonProperty(\"some_thing\")"\
+      "\tprivate String someThing;"\
+    '}')
+  end
+
   it "creates an POJO with an Object inside with one string field" do
     PojoCreator.new("ClassName").create_pojo('{"text" : { "text" : "something"}}').should eq(
       "public class ClassName {"\
