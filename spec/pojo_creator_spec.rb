@@ -1,6 +1,7 @@
 require_relative '../lib/pojo_creator'
 
 describe PojoCreator do
+  
   it "creates an POJO with an int" do
     PojoCreator.new("ClassName").create_pojo('{"time" : 3}').should eq(
       'public class ClassName {'\
@@ -15,6 +16,20 @@ describe PojoCreator do
       '	@JsonProperty("text")'\
       '	private String text;'\
     '}')
+  end
+
+  it "creates an POJO with a List" do
+    PojoCreator.new("other_class").create_pojo('{"text" : [ { "size" : "1234", "name" : "first" } ] }').should eq(
+      "public class OtherClass {"\
+      "\t@JsonProperty(\"text\")"\
+      "\tprivate List<Text> text;"\
+    "}"\
+    "public class Text {"\
+    "\t@JsonProperty(\"size\")"\
+    "\tprivate String size;"\
+    "\t@JsonProperty(\"name\")"\
+    "\tprivate String name;"\
+    "}")
   end
 
   it "creates an POJO with a String and camel-casify the property name" do
