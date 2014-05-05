@@ -55,10 +55,3 @@ class PojoCreator
   end
 
 end
-
-# json_file = File.open(ARGV[0])
-# json = ""
-# while (line = json_file.gets)
-#   json += line + "\n"
-# end
-# puts PojoCreator.new("TestClass").create_pojo(json)
