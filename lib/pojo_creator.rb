@@ -17,10 +17,10 @@ class PojoCreator
     
     json.keys.each do |property|
       if (json[property].class.to_s == "Hash")
-        @additional_classes << "public class #{get_class_name(property)} {" + get_properties(json[property]) + "}"
+        @additional_classes << "class #{get_class_name(property)} {" + get_properties(json[property]) + "}"
         prop_string += "\t@JsonProperty(\"#{property}\")\tprivate #{get_class_name(property)} #{get_field_name(property)};"
       elsif(json[property].class.to_s == "Array")
-        @additional_classes << "public class #{get_class_name(property)} {" + get_properties(json[property][0]) + "}"
+        @additional_classes << "class #{get_class_name(property)} {" + get_properties(json[property][0]) + "}"
         prop_string += "\t@JsonProperty(\"#{property}\")\tprivate List<#{get_class_name(property)}> #{get_field_name(property)};"
       else
         prop_string += "\t@JsonProperty(\"#{property}\")\tprivate #{get_type(json[property])} #{get_field_name(property)};"

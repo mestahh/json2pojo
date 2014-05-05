@@ -24,7 +24,7 @@ describe PojoCreator do
       "\t@JsonProperty(\"text\")"\
       "\tprivate List<Text> text;"\
     "}"\
-    "public class Text {"\
+    "class Text {"\
     "\t@JsonProperty(\"size\")"\
     "\tprivate String size;"\
     "\t@JsonProperty(\"name\")"\
@@ -40,13 +40,13 @@ describe PojoCreator do
       "\t@JsonProperty(\"hits\")"\
       "\tprivate Hits hits;"\
     "}"\
-    "public class Hits {"\
+    "class Hits {"\
     "\t@JsonProperty(\"index\")"\
     "\tprivate String index;"\
     "\t@JsonProperty(\"type\")"\
     "\tprivate String type;"\
     "}"\
-    "public class Hits {"\
+    "class Hits {"\
     "\t@JsonProperty(\"total\")"\
     "\tprivate Integer total;"\
     "\t@JsonProperty(\"hits\")"\
@@ -68,7 +68,7 @@ describe PojoCreator do
       "\t@JsonProperty(\"text\")"\
       "\tprivate Text text;"\
     "}"\
-    "public class Text {"\
+    "class Text {"\
     "\t@JsonProperty(\"text\")"\
     "\tprivate String text;"\
     "}")
@@ -80,7 +80,7 @@ describe PojoCreator do
       "\t@JsonProperty(\"some_thing\")"\
       "\tprivate SomeThing someThing;"\
     "}"\
-    "public class SomeThing {"\
+    "class SomeThing {"\
     "\t@JsonProperty(\"text\")"\
     "\tprivate String text;"\
     "}")
