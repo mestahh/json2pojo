@@ -2,7 +2,7 @@ require "json"
 
 class PojoCreator
 
-  VERSION = '0.3.0'
+  VERSION = '0.3.1'
 
   def initialize(class_name)
     @class_name = get_class_name(class_name)
