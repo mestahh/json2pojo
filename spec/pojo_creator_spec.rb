@@ -32,6 +32,28 @@ describe PojoCreator do
     "}")
   end
 
+  it "creates an POJO with a List based on the real world example with redundant names" do
+    PojoCreator.new("other_class").create_pojo('{"took" : 2, "hits" : { "total" : 23, "hits" : [ { "index" : "abc", "type": "efg"}]} }').should eq(
+      "public class OtherClass {"\
+      "\t@JsonProperty(\"took\")"\
+      "\tprivate Integer took;"\
+      "\t@JsonProperty(\"hits\")"\
+      "\tprivate Hits hits;"\
+    "}"\
+    "public class Hits {"\
+    "\t@JsonProperty(\"index\")"\
+    "\tprivate String index;"\
+    "\t@JsonProperty(\"type\")"\
+    "\tprivate String type;"\
+    "}"\
+    "public class Hits {"\
+    "\t@JsonProperty(\"total\")"\
+    "\tprivate Integer total;"\
+    "\t@JsonProperty(\"hits\")"\
+    "\tprivate List<Hits> hits;"\
+    "}")
+  end
+
   it "creates an POJO with a String and camel-casify the property name" do
     PojoCreator.new("ClassName").create_pojo('{"some_thing" : "something"}').should eq(
       "public class ClassName {"\

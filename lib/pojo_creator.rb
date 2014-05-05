@@ -4,6 +4,7 @@ class PojoCreator
 
   def initialize(class_name)
     @class_name = get_class_name(class_name)
+    @additional_classes = ""
   end
 
   def create_pojo(json_string)
@@ -13,15 +14,13 @@ class PojoCreator
 
   def get_properties(json)
     prop_string = ""
-    @additional_classes = ""
-
+    
     json.keys.each do |property|
-
       if (json[property].class.to_s == "Hash")
-        @additional_classes += "public class #{get_class_name(property)} {" + get_properties(json[property]) + "}"
+        @additional_classes << "public class #{get_class_name(property)} {" + get_properties(json[property]) + "}"
         prop_string += "\t@JsonProperty(\"#{property}\")\tprivate #{get_class_name(property)} #{get_field_name(property)};"
       elsif(json[property].class.to_s == "Array")
-        @additional_classes += "public class #{get_class_name(property)} {" + get_properties(json[property][0]) + "}"
+        @additional_classes << "public class #{get_class_name(property)} {" + get_properties(json[property][0]) + "}"
         prop_string += "\t@JsonProperty(\"#{property}\")\tprivate List<#{get_class_name(property)}> #{get_field_name(property)};"
       else
         prop_string += "\t@JsonProperty(\"#{property}\")\tprivate #{get_type(json[property])} #{get_field_name(property)};"
@@ -56,3 +55,10 @@ class PojoCreator
   end
 
 end
+
+# json_file = File.open(ARGV[0])
+# json = ""
+# while (line = json_file.gets)
+#   json += line + "\n"
+# end
+# puts PojoCreator.new("TestClass").create_pojo(json)

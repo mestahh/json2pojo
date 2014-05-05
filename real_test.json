@@ -1,0 +1,20 @@
+{
+  "took" : 448,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 4,
+    "successful" : 4,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 13409,
+    "max_score" : 1.0,
+    "hits" : [ {
+      "_index" : "royalty_bpm_2014",
+      "_type" : "legacy_daily",
+      "_id" : "yerqbmfuSnGtKangKKxAbw",
+      "_score" : 1.0
+    } ]
+  }
+}
+
